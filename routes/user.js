@@ -10,4 +10,6 @@ router.post("/signup", UserController.signUpController);
 router.post("/login", UserController.loginController);
 router.get("/getUserById",authenticateToken,UserController.getUserByIdController);
 router.put("/updatePreferences", authenticateToken,UserController.updatePref);
+router.get("/getUserPrefs", authenticateToken, UserController.getUserPrefs);
+
 module.exports = router;

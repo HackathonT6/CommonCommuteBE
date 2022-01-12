@@ -53,4 +53,6 @@ const updateUserPrefInDB = async (id, prefs) => {
 	}
 };
 
+
+
 module.exports = { addUser, getUser, getUserById, updateUserPrefInDB };

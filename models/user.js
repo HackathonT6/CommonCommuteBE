@@ -1,5 +1,25 @@
 const mongoose = require("mongoose");
 
+
+const preferencesSchema = mongoose.Schema({
+	Music: {type: Number,default: null},
+	Movies: {type: Number,default: null},
+	History: {type: Number,default: null},
+	Politics: {type: Number,default: null},
+	PC: {type: Number,default: null},
+	Foreign_languages: {type: Number,default: null},
+	Art_exhibitions: {type: Number,default: null},
+	Religion: {type: Number,default: null},
+	Countryside: {type: Number,default: null},
+	outdoors: {type: Number,default: null},
+	Dancing: {type: Number,default: null},
+	Musical_instruments: {type: Number,default: null},
+	Shopping: {type: Number,default: null},
+	Science_and_technology: {type: Number,default: null},
+	Theatre: {type: Number,default: null},
+	Adrenaline_sports: {type: Number,default: null},
+});
+
 const userSchema = mongoose.Schema({
 	_id: mongoose.Schema.Types.ObjectId,
 	email: {
@@ -13,7 +33,7 @@ const userSchema = mongoose.Schema({
 	firstname: { type: String, required: true },
 	lastname: { type: String, required: true },
 	password: { type: String, required: true },
-	preferences:  mongoose.Schema.Types.Mixed,
+	preferences: {type: preferencesSchema,default:null},
 
 	//   savedPets: [{ type: mongoose.Schema.Types.ObjectId, ref: "Pet" }],
 	//   fosteredPets: [{ type: mongoose.Schema.Types.ObjectId, ref: "Pet" }],

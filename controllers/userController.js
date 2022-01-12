@@ -101,9 +101,24 @@ const updatePref = async (req, res) => {
 	}
 };
 
+const getUserPrefs = async (req, res) => {
+	const id = req.body.userId;
+
+	try {
+		const user = await getUserById(id);
+    
+		if (!user) return res.status(500).json({ message: "User does not exist" });
+		return res.status(200).json(user.preferences);
+	} catch (err) {
+		res.status(500).json({ message: "A serious error occured in GET PREF", error: err });
+		return;
+	}
+};
+
 module.exports = {
 	signUpController,
 	loginController,
 	getUserByIdController,
 	updatePref,
+  getUserPrefs
 };
