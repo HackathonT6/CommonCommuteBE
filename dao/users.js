@@ -26,4 +26,15 @@ const getUser = async (email) => {
   }
 };
 
-module.exports = { addUser, getUser };
+const getUserById = async (id) => {
+	try {
+		const user = await User.findOne({ _id: id });
+		return user;
+	} catch (err) {
+		console.log(err);
+		res.status(500).json({ message: "User does not exist", error: err });
+	}
+};
+
+
+module.exports = { addUser, getUser, getUserById };

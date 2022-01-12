@@ -2,7 +2,7 @@ const User = require("../models/user");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const mongoose = require("mongoose");
-const { addUser, getUser } = require("../dao/users");
+const { addUser, getUser, getUserById } = require("../dao/users");
 const JWT_SECRET_KEY = process.env.JWT_SECRET_KEY;
 
 const signUpController = async (req, res) => {
@@ -73,7 +73,29 @@ const loginController = async (req, res) => {
   }
 };
 
+
+const getUserByIdController = async (req, res) => {
+	const id = req.body.userId;
+	try {
+		const user = await getUserById(id);
+		if (!user) return res.status(500).json({ message: "User does not exist" });
+		
+		return res
+			.status(200)
+			.json(user);
+	} catch (err) {
+		res.status(500).json({ message: "A serious error occured", error: err });
+		return;
+	}
+};
+
+
+
+
+
+
 module.exports = {
-  signUpController,
-  loginController,
+	signUpController,
+	loginController,
+	getUserByIdController,
 };
