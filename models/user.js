@@ -13,7 +13,7 @@ const userSchema = mongoose.Schema({
 	firstname: { type: String, required: true },
 	lastname: { type: String, required: true },
 	password: { type: String, required: true },
-	// preferences:  mongoose.Schema.Types.Mixed,
+	preferences:  mongoose.Schema.Types.Mixed,
 
 	//   savedPets: [{ type: mongoose.Schema.Types.ObjectId, ref: "Pet" }],
 	//   fosteredPets: [{ type: mongoose.Schema.Types.ObjectId, ref: "Pet" }],
