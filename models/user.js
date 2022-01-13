@@ -40,6 +40,7 @@ const userSchema = mongoose.Schema({
 	//   fosteredPets: [{ type: mongoose.Schema.Types.ObjectId, ref: "Pet" }],
 	//   adoptedPets: [{ type: mongoose.Schema.Types.ObjectId, ref: "Pet" }],
 	role: { type: String, default: "ROLE.USER" },
-});
+  fakeId:{type: String}
+},{collection:"users"});
 
 module.exports = mongoose.model("User", userSchema);

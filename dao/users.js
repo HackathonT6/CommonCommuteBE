@@ -1,5 +1,8 @@
 const res = require("express/lib/response");
 const User = require("../models/user");
+const Score = require("../models/scores");
+const mongoose = require("mongoose");
+const req = require("express/lib/request");
 
 const addUser = async (userCredentials) => {
 	try {
@@ -53,6 +56,35 @@ const updateUserPrefInDB = async (id, prefs) => {
 	}
 };
 
+const getTopMachesFromDB = async (id) => {
+	try {
+		const fiveUsersFakeId = await Score.find({user_1: id},{user_2:1, _id:0}).sort({ match_score: -1}).limit(5);
+		console.log("!!!!HuRRAY found 5 in db!!!! ", fiveUsersFakeId);
+		return fiveUsersFakeId;
+	} catch (error) {
+		console.log("ERROR ON PREF UPDATE: ", err);
+		res.status(500).json({ message: "Error updating prefs", error: err });
+	}
+};
+
+const getAllUsersId = async () => {
+	try {
+		const usersIds = await User.find({},{_id:1}).limit(5);
+   
+		return usersIds;
+	} catch (err) {
+		console.log(err);
+		res.status(500).json({ message: "User does not exist", error: err });
+	}
+};
 
 
-module.exports = { addUser, getUser, getUserById, updateUserPrefInDB };
+
+module.exports = {
+	addUser,
+	getUser,
+	getUserById,
+	updateUserPrefInDB,
+	getTopMachesFromDB,
+	getAllUsersId,
+};

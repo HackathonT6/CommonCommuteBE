@@ -7,6 +7,8 @@ const {
 	getUser,
 	getUserById,
 	updateUserPrefInDB,
+  getTopMachesFromDB,
+  getAllUsersId,
 } = require("../dao/users");
 const JWT_SECRET_KEY = process.env.JWT_SECRET_KEY;
 
@@ -124,10 +126,46 @@ const getUserPrefs = async (req, res) => {
 	}
 };
 
+
+const getTopMatches = async (req, res) => {
+	const id = req.body.userId;
+
+	try {
+		const {fakeId} = await getUserById(id);
+    const topMatches=await getTopMachesFromDB(fakeId)
+    // const realIds = await getRealIds(topMatches);
+    const realIds=await getAllUsersId();
+		return res.status(200).json(realIds);
+	} catch (err) {
+		res
+			.status(500)
+			.json({ message: "A serious error occured in GET Match", error: err });
+		return;
+	}
+};
+
+async function getRealIds (fakeIds) {
+  try {
+		
+    const realIds = await fakeIds.map(async (fake)=>{return await getUserById(fake.user_2)})
+    
+		return realIds;
+	} catch (err) {
+		res
+			.status(500)
+			.json({ message: "A serious error occured in GET Match", error: err });
+		return;
+	}
+};
+
+
+
+
 module.exports = {
 	signUpController,
 	loginController,
 	getUserByIdController,
 	updatePref,
 	getUserPrefs,
+	getTopMatches,
 };
