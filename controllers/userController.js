@@ -135,7 +135,8 @@ const getTopMatches = async (req, res) => {
     const topMatches=await getTopMachesFromDB(fakeId)
     // const realIds = await getRealIds(topMatches);
     const realIds=await getAllUsersId();
-		return res.status(200).json(realIds);
+    const idsAndScores=realIds.map((id,i)=>{return {score: topMatches[i].match_score,_id:id._id}})
+		return res.status(200).json(idsAndScores);
 	} catch (err) {
 		res
 			.status(500)

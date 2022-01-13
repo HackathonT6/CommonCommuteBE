@@ -58,7 +58,7 @@ const updateUserPrefInDB = async (id, prefs) => {
 
 const getTopMachesFromDB = async (id) => {
 	try {
-		const fiveUsersFakeId = await Score.find({user_1: id},{user_2:1, _id:0}).sort({ match_score: -1}).limit(5);
+		const fiveUsersFakeId = await Score.find({user_1: id},{user_2:1,match_score:1, _id:0}).sort({ match_score: -1}).limit(5);
 		console.log("!!!!HuRRAY found 5 in db!!!! ", fiveUsersFakeId);
 		return fiveUsersFakeId;
 	} catch (error) {
