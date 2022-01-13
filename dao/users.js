@@ -56,20 +56,14 @@ const updateUserPrefInDB = async (id, prefs) => {
 };
 
 const getTopMachesFromDB = async (id) => {
-  try {
-    const fiveUsersFakeId = await Score.find(
-      { user_1: id },
-      { user_2: 1, _id: 0 }
-    )
-      .sort({ match_score: -1 })
-      .limit(5);
-    console.log("!!!!HuRRAY found 5 in db!!!! ", fiveUsersFakeId);
-    // res.status(200).json(fiveUsersFakeId);
-    return fiveUsersFakeId;
-  } catch (error) {
-    console.log("ERROR ON PREF UPDATE: ", err);
-    res.status(500).json({ message: "Error updating prefs", error: err });
-  }
+	try {
+		const fiveUsersFakeId = await Score.find({user_1: id},{user_2:1,match_score:1, _id:0}).sort({ match_score: -1}).limit(5);
+		console.log("!!!!HuRRAY found 5 in db!!!! ", fiveUsersFakeId);
+		return fiveUsersFakeId;
+	} catch (error) {
+		console.log("ERROR ON PREF UPDATE: ", err);
+		res.status(500).json({ message: "Error updating prefs", error: err });
+	}
 };
 
 const getAllUsersId = async () => {
