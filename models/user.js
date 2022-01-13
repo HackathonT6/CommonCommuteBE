@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 
 
 const preferencesSchema = mongoose.Schema({
+  _id : false ,
 	Music: {type: Number,default: null},
 	Movies: {type: Number,default: null},
 	History: {type: Number,default: null},

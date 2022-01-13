@@ -2,7 +2,12 @@ const User = require("../models/user");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const mongoose = require("mongoose");
-const { addUser, getUser, getUserById, updateUserPrefInDB } = require("../dao/users");
+const {
+	addUser,
+	getUser,
+	getUserById,
+	updateUserPrefInDB,
+} = require("../dao/users");
 const JWT_SECRET_KEY = process.env.JWT_SECRET_KEY;
 
 const signUpController = async (req, res) => {
@@ -89,14 +94,16 @@ const getUserByIdController = async (req, res) => {
 const updatePref = async (req, res) => {
 	const id = req.body.userId;
 	const prefs = req.body.preferences;
-  
-  console.log(prefs)
+
+	console.log(prefs);
 	try {
 		const user = await updateUserPrefInDB(id, prefs);
 		if (!user) return res.status(500).json({ message: "User does not exist" });
 		return res.status(200).json(user);
 	} catch (err) {
-		res.status(500).json({ message: "A serious error occured in UPDATE PREF", error: err });
+		res
+			.status(500)
+			.json({ message: "A serious error occured in UPDATE PREF", error: err });
 		return;
 	}
 };
@@ -106,11 +113,13 @@ const getUserPrefs = async (req, res) => {
 
 	try {
 		const user = await getUserById(id);
-    
+
 		if (!user) return res.status(500).json({ message: "User does not exist" });
 		return res.status(200).json(user.preferences);
 	} catch (err) {
-		res.status(500).json({ message: "A serious error occured in GET PREF", error: err });
+		res
+			.status(500)
+			.json({ message: "A serious error occured in GET PREF", error: err });
 		return;
 	}
 };
@@ -120,5 +129,5 @@ module.exports = {
 	loginController,
 	getUserByIdController,
 	updatePref,
-  getUserPrefs
+	getUserPrefs,
 };
